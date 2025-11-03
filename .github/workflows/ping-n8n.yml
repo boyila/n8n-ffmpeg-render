@@ -1,0 +1,18 @@
+name: Keep n8n Render Instance Awake
+
+on:
+  schedule:
+    # Run every 10 minutes
+    - cron: '*/10 * * * *'
+  workflow_dispatch: # Allow manual trigger
+
+jobs:
+  ping:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Ping n8n Render instance
+        run: |
+          curl -f https://n8n-ffmpeg-render-5iew.onrender.com/ || echo "Ping failed"
+      
+      - name: Log timestamp
+        run: echo "Pinged at $(date)"
